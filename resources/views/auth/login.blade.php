@@ -4,7 +4,7 @@
     <div class="mb-5">
         <h1 class="text-center text-2xl font-semibold text-white">Login</h1>
     </div>
-    <h5 class="text-center text-sm text-gray-700 dark:text-gray-300">Login dengan akun sosial media</h5>
+    <h5 class="text-center text-sm text-gray-700 dark:text-gray-300">Login with social media account</h5>
 
     <div class="text-center flex justify-center gap-x-2 my-7 font-semibold text-white">
         <div>
@@ -41,7 +41,7 @@
     </div>
     <div class="text-center text-sm my-8 text-gray-700 dark:text-gray-300 flex items-center justify-around">
         <div class="w-full h-[1px] bg-gray-500"> </div>
-        <span class="mx-2">atau</span>
+        <span class="mx-2">or</span>
         <div class="w-full h-[1px] bg-gray-500"> </div>
     </div>
 
@@ -64,7 +64,7 @@
                 x-bind:type="show ? 'text' : 'password'" name="password" required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            <div class="absolute inset-y-0 right-0 top-6 pr-3 flex items-center text-sm leading-5">
+            <div class="absolute cursor-pointer inset-y-0 right-0 top-6 pr-3 flex items-center text-sm leading-5">
                 <i class="fas fa-eye text-white text-xl":class="{ 'block': !show, 'hidden': show }"
                     @click="show = ! show"></i>
                 <i class="fas fa-eye-slash text-white text-xl":class="{ 'hidden': !show, 'block': show }"
@@ -78,7 +78,7 @@
             @if (Route::has('register'))
                 <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                     href="{{ route('register') }}">
-                    {{ __('Belum punya akun?') }}
+                    {{ __('Dont have account?') }}
                 </a>
             @endif
 

@@ -41,8 +41,7 @@
                     <div class="flex flex-col gap-y-4  ">
 
                         <div class="shrink-0 h-20 w-36 hidden" id="wrapPrevImg">
-                            <img class="img-preview mr-3 w-full h-full object-contain" src=""
-                                alt="Current profile photo" />
+                            <img class="img-preview mr-3 w-full h-full object-contain" src="" alt="" />
                         </div>
                         <label class="block">
                             <span class="sr-only">Choose profile photo</span>

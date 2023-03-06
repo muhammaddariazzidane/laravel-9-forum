@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class GithubController extends Controller
@@ -15,24 +17,71 @@ class GithubController extends Controller
     }
     public function callback()
     {
-        $githubUser = Socialite::driver('github')->user();
-        // dd($githubUser);
-        $user = User::updateOrCreate([
-            'github_id' => $githubUser->id,
-        ], [
-            'name' => $githubUser->nickname,
-            'username' => $githubUser->nickname,
-            'email' => $githubUser->email,
-            'github_token' => $githubUser->token,
-            'avatar' => $githubUser->avatar,
-            'auth_type' => 'github',
-            'password' => 'loremcuy',
-            // 'github_refresh_token' => $githubUser->refreshToken,
-        ]);
+        try {
 
-        Auth::login($user);
+            $githubUser = Socialite::driver('github')->user();
+            // dd($githubUser);
 
-        return redirect('/dashboard');
-        // $user->token
+            $finduser = User::where('github_id', $githubUser->id)->first();
+            $findemail = User::where('email', $githubUser->email)->first();
+
+
+            // dd($findemail);
+            if ($findemail) {
+                $findemail->update([
+                    'github_id' => $githubUser->id,
+                    'name' => $githubUser->nickname,
+                    'username' => $githubUser->nickname,
+                    'github_token' => $githubUser->token,
+                    'github_id' => $githubUser->id,
+                    'avatar' => $githubUser->avatar,
+                    'auth_type' => 'github',
+                ]);
+
+                Auth::login($findemail);
+                return redirect()->intended('/');
+            } elseif ($finduser) {
+                Auth::login($finduser);
+                return redirect()->intended('/');
+            } else {
+                $data = [
+                    'github_id' => $githubUser->id,
+                    'name' => $githubUser->nickname,
+                    'username' => $githubUser->nickname,
+                    'email' => $githubUser->email,
+                    'github_token' => $githubUser->token,
+                    'avatar' => $githubUser->avatar,
+                    'auth_type' => 'github',
+                    'password' => 'loginaja',
+                ];
+                $data['password'] = Hash::make($data['password']);
+
+                $newUser = User::create($data);
+
+                Auth::login($newUser);
+
+                return redirect()->intended('/');
+            }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 }
+
+// $githubUser = Socialite::driver('github')->user();
+// dd($githubUser);
+// $user = User::updateOrCreate([
+//     'github_id' => $githubUser->id,
+// ], [
+//     'name' => $githubUser->nickname,
+//     'username' => $githubUser->nickname,
+//     'email' => $githubUser->email,
+//     'github_token' => $githubUser->token,
+//     'avatar' => $githubUser->avatar,
+//     'auth_type' => 'github',
+//     'password' => 'loremcuy',
+// ]);
+
+// Auth::login($user);
+
+// return redirect('/dashboard');

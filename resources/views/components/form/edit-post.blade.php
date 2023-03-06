@@ -26,7 +26,7 @@
                     @if ($post->photo)
                         <div class="shrink-0 h-20 w-36" id="wrapPrevImg">
                             <img class="img-preview mr-3  w-full h-full object-contain"
-                                src="{{ asset('storage/' . $post->photo) }}" alt="Current profile photo" />
+                                src="{{ asset('storage/' . $post->photo) }}" alt="" />
                         </div>
                     @endif
                     <label class="block">
