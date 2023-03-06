@@ -20,8 +20,6 @@
             <div class="h-20 w-20 ">
                 @if ($user->avatar == 'default.jpg')
                     <img class="w-full img-preview h-full object-contain" src="/img/{{ $user->avatar }}" alt="">
-                @elseif ($user->auth_type != null)
-                    <img class="w-full img-preview h-full object-contain" src="{{ $user->avatar }}" alt="">
                 @else
                     <img class="w-full img-preview h-full object-contain" src="{{ asset('storage/' . $user->avatar) }}"
                         alt="">

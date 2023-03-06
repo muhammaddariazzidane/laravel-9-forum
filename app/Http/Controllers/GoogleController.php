@@ -23,24 +23,21 @@ class GoogleController extends Controller
             $googleUser = Socialite::driver('google')->user();
             // dd($googleUser);
 
-            $finduser = User::where('google_id', $googleUser->id)->first();
+            // $finduser = User::where('google_id', $googleUser->id)->first();
             $findemail = User::where('email', $googleUser->email)->first();
 
             // dd($finduser);
             if ($findemail) {
                 $findemail->update([
                     'google_id' => $googleUser->id,
-                    'name' => $googleUser->name,
+                    // 'name' => $googleUser->name,
                     'username' => $googleUser->name,
                     'google_token' => $googleUser->token,
                     'google_id' => $googleUser->id,
-                    'avatar' => $googleUser->avatar,
+                    // 'avatar' => $googleUser->avatar,
                     'auth_type' => 'google',
                 ]);
                 Auth::login($findemail);
-                return redirect()->intended('/');
-            } elseif ($finduser) {
-                Auth::login($finduser);
                 return redirect()->intended('/');
             } else {
                 $data = [
@@ -49,7 +46,7 @@ class GoogleController extends Controller
                     'username' => $googleUser->name,
                     'email' => $googleUser->email,
                     'google_token' => $googleUser->token,
-                    'avatar' => $googleUser->avatar,
+                    'avatar' => 'default.jpg',
                     'auth_type' => 'google',
                     'password' => 'loginaja',
                 ];

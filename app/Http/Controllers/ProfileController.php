@@ -61,7 +61,7 @@ class ProfileController extends Controller
 
 
         $request->user()->update($data);
-        notify()->success('Success update post');
+        notify()->success('Success update profile');
         return redirect()->back();
     }
 

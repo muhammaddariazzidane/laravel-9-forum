@@ -48,7 +48,13 @@
                 <small class="opacity-90 mb-4 text-gray-400">{{ $post->created_at->diffForhumans() }}</small>
                 <a href="{{ route('profile.show', $post->user->name) }}" class="text-lg mb-3">{{ $post->user->name }}</a>
                 <div class="h-16 w-16 rounded-full">
-                    <img src="{{ $post->user->avatar }}" class="w-full h-full rounded-full object-cover" alt="">
+                    @if ($post->user->avatar == 'default.jpg')
+                        <img src="/img/{{ $post->user->avatar }}" class="w-full h-full rounded-full object-cover"
+                            alt="">
+                    @else
+                        <img src="{{ asset('storage/' . $post->user->avatar) }}"
+                            class="w-full h-full rounded-full object-cover" alt="">
+                    @endif
                 </div>
             </div>
             @if ($post->photo)

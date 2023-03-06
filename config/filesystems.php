@@ -35,6 +35,12 @@ return [
             'root' => storage_path('app'),
             'throw' => false,
         ],
+        // 'hosting' => [
+        //     'driver' => 'local',
+        //     'root' => public_path() . '/../../public_html' . 'post-images' . 'storage/',
+        //     'url' => env('APP_URL') . '/' . 'post-images' . 'storage/',
+        //     'visibility' => 'public',
+        // ],
 
         'public' => [
             'driver' => 'local',

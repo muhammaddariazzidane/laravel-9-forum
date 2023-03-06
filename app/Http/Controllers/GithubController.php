@@ -22,7 +22,7 @@ class GithubController extends Controller
             $githubUser = Socialite::driver('github')->user();
             // dd($githubUser);
 
-            $finduser = User::where('github_id', $githubUser->id)->first();
+            // $finduser = User::where('github_id', $githubUser->id)->first();
             $findemail = User::where('email', $githubUser->email)->first();
 
 
@@ -30,18 +30,15 @@ class GithubController extends Controller
             if ($findemail) {
                 $findemail->update([
                     'github_id' => $githubUser->id,
-                    'name' => $githubUser->nickname,
+                    // 'name' => $githubUser->nickname,
                     'username' => $githubUser->nickname,
                     'github_token' => $githubUser->token,
                     'github_id' => $githubUser->id,
-                    'avatar' => $githubUser->avatar,
+                    // 'avatar' => $githubUser->avatar,
                     'auth_type' => 'github',
                 ]);
 
                 Auth::login($findemail);
-                return redirect()->intended('/');
-            } elseif ($finduser) {
-                Auth::login($finduser);
                 return redirect()->intended('/');
             } else {
                 $data = [
@@ -50,7 +47,7 @@ class GithubController extends Controller
                     'username' => $githubUser->nickname,
                     'email' => $githubUser->email,
                     'github_token' => $githubUser->token,
-                    'avatar' => $githubUser->avatar,
+                    'avatar' => 'default.jpg',
                     'auth_type' => 'github',
                     'password' => 'loginaja',
                 ];
